@@ -1,3 +1,3 @@
-### PupGram
+## PupGram
 
-## Capstone project by Henry, Anjola and Mayowa.
+# Capstone project by Henry, Anjola and Mayowa.
