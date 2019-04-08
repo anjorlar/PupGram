@@ -9,7 +9,8 @@ User.init({
     },
     Username: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     Password: {
         type: Sequelize.STRING,
@@ -17,7 +18,8 @@ User.init({
     },
     Email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     Bio: {
         type: Sequelize.STRING,

@@ -9,7 +9,9 @@ exports.postlogin = (req, res, next) => {
         res.status(400).json({ msg: "All Fields are required" })
     } else {
         User.findOne({
-            where: { Email }
+            where: {
+                Email
+            }
         }).then(user => {
             if (!user) {
                 res.status(400).json({ msg: "Invalid Email" })

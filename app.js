@@ -9,7 +9,10 @@ const app = express();
 app.use(express.json());
 
 app.use("/api", require("./routes/api/user"));
-app.use("/api/auth", require("./routes/api/auth"));
+// app.use("/api/auth", require("./routes/api/auth"));
+// app.use("/api/auth", require("./routes/api/dogs"));
+// app.use("/api/auth", require("./routes/api/posts"));
+
 
 const PORT = process.env.PORT || 5000;
 
