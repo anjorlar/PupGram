@@ -1,12 +1,14 @@
 // const bcrypt = require('bcryptjs');
 // const jwt = require("jsonwebtoken");
 
-const Post = require("../models/posts");
+const Comments = require("../models/comments");
 const User = require("../models/users");
+const Post = require("../models/posts");
 
+// Gets all Comment
 
-exports.getPost = (req, res, next) => {
-    Post.findAll({
+exports.getComments = (req, res, next) => {
+    Comments.findAll({
         include: [
             {
                 all: true,
@@ -14,69 +16,69 @@ exports.getPost = (req, res, next) => {
             }
         ]
     })
-        .then(posts => {
-            res.json(posts);
+        .then(comments => {
+            res.json(comments);
         })
         .catch(err => res.json({ success: false }))
 };
 
-// Gets a Single post by its id
+// Gets a Single Comment by its id
 
-exports.getPostbyId = (req, res) => {
-    const postId = req.params.id
-    Post.findByPk(postId)
-        .then(post => {
-            if (!post) {
-                res.status(404).json({ success: false, message: "Post not found" });
+exports.getCommentbyId = (req, res) => {
+    const commentId = req.params.id
+    Comments.findByPk(commentId)
+        .then(comment => {
+            if (!comment) {
+                res.status(404).json({ success: false, message: "Comment not found" });
             } else {
-                res.json(post)
+                res.json(comment)
             }
         })
         .catch(err =>
             res.status(500).json({
                 success: false,
-                message: "Something went wrong while getting the post"
+                message: "Something went wrong while getting the comment"
             })
         );
 };
 
-// Send a Post
+// Posts a Comment
 
-exports.postPost = (req, res) => {
-    const { Title, Content } = req.body;
+exports.postComment = (req, res) => {
+    const { Text } = req.body;
     const userId = req.userId;
+    // const postId = req.postId;
     console.log("Req userId:" + userId);
     console.log("Header" + req.header("x-access-token"));
     User.findByPk(userId)
         .then(user => {
             user
-                .createPost({
-                    Title,
-                    Content
+                .createComment({
+                    Text
                 })
-                .then(post => {
-                    res.json(post);
+                .then(comment => {
+                    res.json(comment);
                 });
         })
         .catch(err =>
             res
                 .status(500)
-                .json({ msg: "Something went wrong while adding post", error: err })
+                .json({ msg: "Something went wrong while adding comment", error: err })
         );
 };
 
 // Deletes a comment
 
-exports.deletePost = (req, res) => {
-    const postId = req.params.id;
-    Post.findByPk(postId)
-        .then(post => {
-            if (post.userId !== req.userId) {
+exports.deleteComment = (req, res) => {
+    const commentId = req.params.id;
+    Comments.findByPk(commentId)
+        .then(comment => {
+            if (comment.userId !== req.userId) {
                 res
                     .status(401)
-                    .json({ msg: "You can't delete a post you did not send" });
+                    .json({ msg: "You can't delete a comment you did not send" });
             } else {
-                post
+                comment
                     .destroy()
                     .then(() => {
                         res.json({ success: true });
@@ -85,24 +87,24 @@ exports.deletePost = (req, res) => {
             }
         })
         .catch(err =>
-            res.json({ success: false, message: "This post doesn't exists" })
+            res.json({ success: false, message: "This comment doesn't exists" })
         );
 };
 
 /**
- * Gets all post created by the a user
+ * Gets all comments created by the a user
  */
-exports.getPostByUser = (req, res) => {
+exports.getCommentsByUser = (req, res) => {
     const id = req.params.id;
     User.findByPk(id)
         .then(user => {
             user
-                .getPost()
-                .then(post => res.json(post))
+                .getComments()
+                .then(comments => res.json(comments))
                 .catch(err =>
                     res.status(500).json({
                         success: false,
-                        msg: "Something went wrong while getting post",
+                        msg: "Something went wrong while getting comment",
                         error: err
                     })
                 );
@@ -143,6 +145,5 @@ exports.getPostByUser = (req, res) => {
 //             })
 //         );
 // };
-
 
 
