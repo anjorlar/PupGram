@@ -4,14 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -L app.js",
+    "app": "nodemon app.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run app\" \"npm run client\"",
+    "clientinstall": "cd client && npm install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
     "react-router-dom": "^5.0.0",
     "sequelize": "^5.2.9"

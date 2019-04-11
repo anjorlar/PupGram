@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import NavBar from './Components/NavBar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -50,3 +51,22 @@ class App extends Component {
 }
 
 export default App;
+||||||| merged common ancestors
+=======
+import React, { Component } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import AppNavbar from './components/AppNavbar'
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <AppNavbar />
+      </div>
+    );
+  }
+}
+
+export default App;
+>>>>>>> master
